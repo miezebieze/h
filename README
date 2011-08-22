@@ -1,0 +1,3 @@
+The folder lib is linked to $PYTHONHOME/site-packages/local for easier sharing
+in different versions of h in a directory tree 'versioning'. Git obsoleted
+this and and I shall change it.

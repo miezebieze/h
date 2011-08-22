@@ -1,0 +1,2 @@
+The folder lib is linked to $PYTHONHOME/site-packages/local for easier sharing
+in different versions of h, but this is obsolete now and I shall change it.

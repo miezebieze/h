@@ -1,0 +1,32 @@
+
+player.move
+player.shoot
+
+stuff.move
+stuff.draw
+
+static.collidewith(bullets, enemies, player)
+static.draw
+
+bullets.pop => if dead > else:
+ bullets.move
+ bullets.draw
+
+enemies.collidewith(bullets, player)
+enemies.pop => if dead > else:
+ enemies.control
+ enemies.move
+ enemies.shoot
+ enemies.draw
+
+player.draw
+
+
+
+
+## Colliding:
+static > bullets
+static > enemies
+static > player
+enemies> bullets
+enemies> player
