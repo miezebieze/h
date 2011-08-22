@@ -5,7 +5,7 @@ import sys
 import pygame
 from pygame.locals import SRCALPHA, KEYUP
 
-from lib import asciisprites
+from local import asciisprites
 
 import objects
 
