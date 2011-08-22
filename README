@@ -1,8 +1,21 @@
-Playing in Gnu/Linux:
+OH HAI!
+This is my first bigger project:
+
+Featuring:
+    * Graphics rendered from ascii for easy editing and to keep
+      binary out of source.
+    * Easily modifyable
+
+Playing in Gnu/Linux and similar ones:
     cd game
     ./H.sh
 
 Other OSs:
     #somehow get into directory "game"
     # Do something like:
-    [PATH_TO_PYTHON2]/python H.py
+    $PATH_TO_PYTHON2/python H.py
+
+Requirements:
+    pygame
+    python2
+
