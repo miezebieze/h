@@ -1,0 +1,8 @@
+Playing in in Gnu/Linux:
+    cd game
+    ./H.sh
+
+Other OSs:
+    #somehow get into directory "game"
+    # Do something like:
+    [PATH_TO_PYTHON2]/python H.py
