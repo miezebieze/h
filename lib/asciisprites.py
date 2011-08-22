@@ -1,5 +1,5 @@
 """ Inspirated and partly taken from the game Gorillas.py by Al Sweigart.
-Visit him (and learn programming games) at:
+    Visit him (and learn to make your own games) at:
 
         http://inventwithpython.com
 """
