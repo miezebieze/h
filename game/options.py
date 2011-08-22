@@ -11,7 +11,7 @@ Options = {
             'bottom': 8
             },
         'FPS':        30,
-        'enemydelay': 100,
+        'enemydelay': 10,
         'powerupdelay': 300,
         'bgcolour':   Colours['transblack']
         },
@@ -49,7 +49,7 @@ Player = {
 
 Enemies = {
     'dumb': {
-        'life':     2,
+        'life':     1,
         'speed':    1,
         'damage':   3,
         'team':     'enemy',
@@ -60,7 +60,7 @@ Enemies = {
             }
         },
     'followx': {
-        'life':     5,
+        'life':     2,
         'speed':    2,
         'damage':   5,
         'team':     'enemy',
@@ -96,6 +96,15 @@ Bullets = {
     }
 
 Stuff = {
+    'money': {
+        'life':     None,
+        'damage':   None,
+        'sprite':   Sprites['Money'],
+        'colours':  {
+            'X': Colours['yellowb'],
+            'O': Colours['yellowd']
+            }
+        },
     'sun': {
         'life':     None,
         'damage':   None,
@@ -107,7 +116,7 @@ Stuff = {
     'star': {
         'life':     None,
         'damage':   0,
-        'sprite':   Sprites['Star'],
+        'sprite':   Sprites['Stars'],
         'colours':  {
             'X': Colours['yellowb']
             }

@@ -80,7 +80,7 @@ XXXXXXXXXXXXXXXX
     XXXXXXXX    
 """,
 
-    'Star':
+    'Starl':
 """
 X  XX  X
  X XX X 
@@ -90,6 +90,36 @@ XXXXXXXX
 X  XX  X
 """,
 
+    'Stars':
+"""
+X X X
+ XXX 
+XXXXX
+ XXX 
+X X X
+""",
+
+    'Money': {
+     '1': """
+ XXX 
+XXOXX
+XOOOX
+XXOXX
+ XXX 
+""", '2': """
+  X  
+ XXX 
+ XXX 
+ XXX 
+  X  
+""", '3': """
+  X  
+  X  
+  X  
+  X  
+  X  
+"""
+},
     'Paused':
 """
 XXXXXXXXXX      XXXXX     XX       XX   XXXXXXXXXX  XXXXXXXXXXX  XXXXXXXXXX 
