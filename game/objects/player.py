@@ -6,7 +6,7 @@ from local import asciisprites
 from basic import Basic
 from stuff import Bullet
 
-from options import Options as Game
+#from options import Options as Game
 
 
 class Player(Basic):
@@ -17,7 +17,7 @@ class Player(Basic):
         Basic.__init__(s, game, options, position,
                        image, group, None, colliders)
         s._power = options['power']
-        s._shootspeed = options['shootspeed']
+        s._shootspeed = 1.0 * s._game.fps / options['shootspeed']
         s._shootcooldown = 0
         s._shootkey = False
         s._bombkey = False
@@ -99,17 +99,17 @@ class Player(Basic):
         ''' Append a bullet to the game. '''
         s._shootcooldown += 1
         if s._shootkey and s._shootcooldown >= s._shootspeed and s._ammo:
-            new = Bullet(s._game, s._game.OPTIONS.Bullets['bullet'],
+            new = Bullet(s._game, s._game.OPTIONS.OBJECTS['bullet'],
                          (s.rect.centerx, s.rect.top),
                          s._game.images['bullet'])
-            s._game.objects['bullets'][new] = 0
+            s._game.objects['bullets'].append(new)
             s._ammo -= 1
             s._shootcooldown = 0
         if s._bombkey and s._bombs:
-            new = Bullet(s._game, s._game.OPTIONS.Bullets['rocket'],
+            new = Bullet(s._game, s._game.OPTIONS.OBJECTS['rocket'],
                          (s.rect.centerx, s.rect.top),
                          s._game.images['rocket'])
-            s._game.objects['bullets'][new] = 0
+            s._game.objects['bullets'].append(new)
             s._bombs -= 1
             s._bombkey = False # It stops and bombs aren't wasted.
 
@@ -118,25 +118,35 @@ class Player(Basic):
         if s._lives == 0:
             return 'gameover'
 
+        keys = s._game.OPTIONS.KEYS
         for event in pygame.event.get():
             if event.type == QUIT:
                 return 'killed'
 
             if event.type == KEYUP:
-                if event.key in Game['Keys']['quit']:
+                if event.key in keys['quit']:
                     return 'quit'
 
-                elif event.key in Game['Keys']['pause']:
+                elif event.key in keys['pause']:
                     return 'paused'
 
-                for dir_ in s._moves:
-                    if event.key in Game['Keys'][dir_]: s._moves[dir_] = False
-                if event.key in Game['Keys']['shoot']:  s._shootkey = False
-                if event.key in Game['Keys']['bomb']:   s._bombkey = False
+                if s._moves:
+                    for dir_ in s._moves:
+                        if event.key in keys[dir_]:
+                            s._moves[dir_] = False
+                if event.key in keys['shoot']:
+                    s._shootkey = False
+                #if event.key in keys['bomb']:
+                    # Deactivates itself.
+                    #s._bombkey = False
 
             if event.type == KEYDOWN:
-                for dir_ in s._moves:
-                    if event.key in Game['Keys'][dir_]: s._moves[dir_] = True
-                if event.key in Game['Keys']['shoot']:  s._shootkey = True
-                if event.key in Game['Keys']['bomb']:   s._bombkey = True
+                if s._moves:
+                    for dir_ in s._moves:
+                        if event.key in keys[dir_]:
+                            s._moves[dir_] = True
+                if event.key in keys['shoot']:
+                    s._shootkey = True
+                if event.key in keys['bomb']:
+                    s._bombkey = True
         return 'continue'

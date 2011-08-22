@@ -1,4 +1,4 @@
-from options import default as Options
+from options import performance as Options
 from main import Game
 
 

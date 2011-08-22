@@ -4,8 +4,8 @@ import random
 
 from basic import Basic
 
-from options import Options as Game
-from options import Bullets
+#from options import Options as Game
+#from options import Bullets
 
 
 

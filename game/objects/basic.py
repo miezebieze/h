@@ -2,7 +2,7 @@ import pygame
 
 #from local import asciisprites
 
-from options import Options as Game
+#from options import GAME, DIRECTIONS
 #from options import Enemies
 #from options import Bullets
 
@@ -12,6 +12,7 @@ class Basic(object):
     def __init__(s, game, options, position, image, group = None,
                  course = None, colliders = []):
         s._game = game
+        s.GAME = s._game.OPTIONS.GAME
         # Visual data:
         s.image = image
         s.rect = pygame.Rect((0,0), s.image.surface.get_size())
@@ -35,14 +36,14 @@ class Basic(object):
             #s._moved = True
             s._thrust = 1
             s._moves = {}
-            for key in Game['Directions']:
-                s._moves[key] = False
+            for i in s._game.OPTIONS.DIRECTIONS:
+                s._moves[i] = False
             if bool(course):
                 if isinstance(course, list):
                     for direction in course:
                         s._moves[direction]
                 else:   s._moves[course] = True
-            s._speed = options['speed']
+            s._speed = 1.0 * options['speed'] / s._game.fps
             try:             s._speedmin = options['speedmin']
             except KeyError: s._speedmin = 1
             try:             s._speedmax = options['speedmax']
@@ -54,6 +55,9 @@ class Basic(object):
         s.collide_ip()
         if s._moves:
             s._move()
+        #if s.group == 'static_stuff':
+         #   s.draw(s._game.background)
+        #else:
         s.draw(s._game.screen)
         return True
 
@@ -73,7 +77,10 @@ class Basic(object):
     def collide_ip(s):
         ''' Collide s.rect with all objects in s.colliders lists. '''
         for i in range(len(s.colliders)):
-            for object in s._game.objects[s.colliders[i]]:
+            if s.dead(): break
+            for j in range(len(s._game.objects[s.colliders[i]])):
+                if s.dead(): break
+                object = s._game.objects[s.colliders[i]][j]
                 if not s == object: # it could happen
                     if s.collides_with(object):
                         if not object.out_of_game():
@@ -87,8 +94,8 @@ class Basic(object):
                                     object.health = 0
                                 else:
                                     object.health -= s.damage
-                if s.dead(): break
-            if s.dead(): break
+
+
 
     def _move(s):
         ''' Move the item by s.speed in s.moves['direction'].
@@ -130,10 +137,10 @@ class Basic(object):
         return s.rect.colliderect(object.rect)
 
     def move_internal(s, bounds):
-        dirs = ['left', 'right', 'up', 'down']
-        nums = [[0,2,3], [1,2,3], [2,0,1], [3,0,1]]
+        dirs = s._game.OPTIONS.DIRECTIONS # l, r, u, d
+        NUMS = [[0,2,3], [1,2,3], [2,0,1], [3,0,1]]
         offset = [0, 0, 0, 0]
-        for i, j1, j2 in nums:
+        for i, j1, j2 in NUMS:
             if s._moves[dirs[i]]:
                 if not s.moves_out_of_bounds(dirs[i], bounds):
                     if s._moves[dirs[j1]] and s._moves[dirs[j2]]:
