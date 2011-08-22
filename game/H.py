@@ -1,34 +1,43 @@
 #!/usr/bin/python2
+import random
+import sys
+
 import pygame
-from pygame.locals import SRCALPHA
-import random, sys
-import options, objects
+from pygame.locals import SRCALPHA, KEYUP
+
+from local import asciisprites
+
+import objects
+import options
+
 
 class Game:
-    def __init__(self, state):
+
+    def __init__(s, state):
         pygame.init()
-        self.enemymodels = []
-        for i in options.Enemies:
-            self.enemymodels.append(i)
-        self.options = options
-        self.enemydelay = options.Options['Game']['enemydelay']
-        self.powerupdelay = options.Options['Game']['powerupdelay']
-        self.newenemycount = 0
-        self.powerupcount = 0
-        self.screensize = options.Options['Game']['screensize']
-        self.screen = pygame.display.set_mode(self.screensize, SRCALPHA, 32)
-        boffset = options.Options['Game']['boundsoffset']
-        self.bounds = pygame.Rect(-boffset['left'], -boffset['top'],
-                                   boffset['left'] +self.screensize[0]+ boffset['right'],
-                                   boffset['top'] +self.screensize[1]+ boffset['bottom'])
-        self.clock  = pygame.time.Clock()
-        self.fps    = options.Options['Game']['FPS']
-        self.frame  = 0
-        self.on     = None
-        self.state  = state
-        self.subject = None
-        # visuals:
-        self.objects = {
+        s.OPTIONS = options
+        s.enemydelay = s.OPTIONS.Options['Game']['enemydelay']
+        #s.powerupdelay = s.OPTIONS.Options['Game']['powerupdelay']
+        s._newenemycount = 0
+        #s._powerupcount = 0
+        s.screensize = s.OPTIONS.Options['Game']['screensize']
+        s.screen = pygame.display.set_mode(s.screensize, SRCALPHA, 32)
+        # Setup some bounds, where the objects can live in:
+        _boffset = s.OPTIONS.Options['Game']['boundsoffset']
+        _bsize = [_boffset['left'] + s.screensize[0] + _boffset['right'],
+                  _boffset['top'] + s.screensize[1] + _boffset['bottom']]
+        s.bounds = pygame.Rect(_boffset['left'] * -1 , _boffset['top'] * -1,
+                               _bsize[0], _bsize[1])
+
+        # Stuff:
+        s._clock = pygame.time.Clock()
+        s.fps = s.OPTIONS.Options['Game']['FPS']
+        s.frame = 0
+        s._on = True
+        s.state = state
+        s.subject = None
+        # Visuals:
+        s.objects = {
             'player':   {},
             'enemies':  {},
             'bullets':  {},
@@ -37,89 +46,119 @@ class Game:
             'power':    {}, # powerups
             'tmp':      {}  # 'game over', 'paused' and such sprites
             }
-        self.queue = ['stuff', 'static', 'bullets', 'enemies', 'power'] # for objects
+        # update order of object groups:
+        s.queue = ['stuff', 'static', 'bullets', 'enemies', 'power']
 
-    def setup(self):
-        self.subject = objects.Player(self, options.Player,
-                                            options.Player['startposition'])
-        self.objects['player'][self.subject] = 0
-        sun = objects.Basic(self, options.Stuff['sun'], (70, 60), 'stuff')
-        self.objects[sun.group][sun] = 0
+    def setup(s):
+        # parse images
+        s.images = {}
+        for i in s.OPTIONS.Images:
+            s.images[i] = asciisprites.Image(s.OPTIONS.Images[i]['sprite'],
+                                             s.OPTIONS.Images[i]['colours'])
+        s.subject = objects.Player(s, s.OPTIONS.Player,
+                                   s.OPTIONS.Player['startposition'],
+                                   s.images['player'])
+        s.objects['player'][s.subject] = 0
+        # TODO: blit 'stuff' on the game.surface at beginning forever
+        sun = objects.Basic(s, s.OPTIONS.Stuff['sun'], (70, 60),
+                            s.images['sun'], 'stuff')
+        s.objects[sun.group][sun] = 0
+        for i in range(s.OPTIONS.Options['Game']['startstars']):
+            s.objects['stuff'][objects.Basic(s, s.OPTIONS.Stuff['stars'],
+                                (random.randint(10, s.screensize[0] -10),
+                                 random.randint(10, s.screensize[1] -10)),
+                                 s.images['stars'], 'stuff')] = 0
+        for i in range(s.OPTIONS.Options['Game']['startenemies']):
+            s.objects['enemies'][objects.Thinking(s, s.OPTIONS.Enemies['blue'],
+                                    (random.randint(0, s.screensize[0]),
+                                     random.randint(-10, s.screensize[1] - 50)),
+                                     s.images['blue'], 'enemies', None, 
+                            ['bullets', 'player', 'enemies', 'static'])] = 0
 
-    def run(self):
-        self.on = True
-        self.frame = 0
-        while self.on:
-            self.frame += 1
-            if self.state == 'start':
-                self.setup()
-            self.state = self.subject.control()
-            if self.state == 'continue':
-                self.cycle()
-            elif self.state == 'paused':
-                self.pause()
-            elif self.state == 'gameover':
-                self.gameover()
-            elif self.state == 'quit':
-                self.quit()
-            elif self.state == 'killed':
-                self.on = False
+    def run(s):
+        s.frame = 0
+        while s._on:
+            s.frame += 1
+            if s.state == 'start':
+                s.setup()
 
+            s.state = s.subject._control()
+            if s.state == 'continue':
+                s.cycle()
+            elif s.state == 'paused':
+                s.pause()
+            elif s.state == 'gameover':
+                s.gameover()
+            elif s.state == 'quit':
+                s.quit()
+            elif s.state == 'killed':
+                s._on = False
             pygame.display.update()
-            self.clock.tick(self.fps)
-            if self.frame == self.fps: self.frame = 0
+            s._clock.tick(s.fps)
+            if s.frame == s.fps: s.frame = 0
 
-        self.terminate()
+        s.terminate()
 
-    def cycle(self):
-        self.spawnstuff()
-        self.screen.fill( options.Options['Game']['bgcolour'] )
+    def cycle(s):
+        s.spawn()
+        s.screen.fill(s.OPTIONS.Options['Game']['bgcolour'])
 
-        self.subject.update1()
+        s.subject.update(1)
 
-        for i in range(len(self.queue)):
-            self.updateobjects(self.objects[self.queue[i]])
+        for i in range(len(s.queue)):
+            s._update_objects(s.objects[s.queue[i]])
 
-        self.subject.update2()
-        self.updateobjects(self.objects['tmp'])
+        s.subject.update(2)
+        s._update_objects(s.objects['tmp'])
 
-    def pause(self):
-        for _e in pygame.event.get():
-            if _e.type in options.Options['Keys']['pause']:
-                self.state = 'continue'
+    def pause(s):
+        while s.state == 'paused':
+            for event in pygame.event.get():
+                if (event.type == KEYUP and
+                event.key in s.OPTIONS.Options['Keys']['pause']):
+                    s.state = 'continue'
+            s._clock.tick(s.fps)
         # show 'paused'
-    def gameover(self):
-        self.on = False
-        # show 'game' 'over'
-    def quit(self):
+
+    def gameover(s):
+        s._on = False
+        # show 'game' + 'over'
+
+    def quit(s):
         #ask if really quit, credits or whatevs
-        self.on = False
-    def terminate(self):
+        s._on = False
+
+    def terminate(s):
         pygame.quit()
         sys.exit()
 
-    def spawnstuff(self):
-        self.newenemycount += 1
-        self.powerupcount += 1
+    def spawn(s):
+        ''' Test, if it's time and put new stuff to the game. '''
+        s._newenemycount += 1
 
-        if self.newenemycount >= self.enemydelay:
-            model = self.enemymodels[random.randint(0, (len(self.enemymodels) -1))]
-            self.objects['enemies'][objects.Thinking( self, options.Enemies[model],
-                                        (random.randint(0, self.screensize[1]), -16),
-                                        'enemies', None,
-                                        ['bullets', 'player', 'enemies', 'static'])
-                                        ] = 0
-            self.newenemycount = 0
-        if self.powerupcount >= self.powerupdelay:
-            self.powerupcount = 0
+        if s._newenemycount >= s.enemydelay:
+            if random.randint(0, 10) < 4:
+                model = 'red'
+            else:
+                model = 'blue'
+            #model = s.enemymodels[random.randint(0, (len(s.enemymodels) -1))]
+            colgroups = ['bullets', 'player', 'enemies', 'static']
+            coords = (random.randint(0, s.screensize[0]), -16)
+            newenemy = objects.Thinking(s, s.OPTIONS.Enemies[model], coords,
+                                         s.images[model], 'enemies',
+                                        None, colgroups)
+
+            s.objects['enemies'][newenemy] = 0
+            s._newenemycount = 0
         
-    def updateobjects(self, list):
+    def _update_objects(s, list):
         dels = {}
         for i in list:
             if not i.update():
                 dels[i] = 0
         for i in dels:
             list.pop(i)
+
 
 if __name__ == '__main__':
     Main = Game('start')

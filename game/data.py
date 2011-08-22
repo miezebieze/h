@@ -1,10 +1,17 @@
 Colours = {
-    'white':    (255,255,255,255),
-    'black':    (  0,  0,  0,255),
-    'yellowb':  (255,255,100,255),
-    'yellowd':  (200,150,  0,255),
-   'transwhite':(255,255,255,  0),
-   'transblack':(  0,  0,  0,  0)
+    'white':    (255, 255, 255, 255),
+    'black':    (0, 0, 0, 255),
+    'red':      (255, 0, 0, 255),
+    'green':    (0, 255, 0, 255),
+    'blue':     (0, 0, 255, 255),
+    'yellow':   (255, 255, 0, 255),
+    'magenta':  (255, 0, 255, 255),
+    'cyan':     (0, 255, 255, 255),
+    'yellowb':  (255, 255, 100, 255),
+    'yellowd':  (200, 150, 0, 255),
+   'transwhite':(255, 255, 255, 0),
+   'transblack':(0, 0, 0, 0),
+    'cyantr':   (0, 255, 255, 175)
     }
 
 Sprites = {
@@ -12,6 +19,7 @@ Sprites = {
 """
    XX   
    XX   
+  XXXX  
   XXXX  
  XXXXXX 
 XXXXXXXX
@@ -23,11 +31,11 @@ X XXXX X
     'Ship2':
 """
   XXXX  
- X    X 
- X    X 
- X    X 
+ XooooX 
+ XooooX 
+ XooooX 
 XXXXXXXX
-XXXXXXXX
+XOOOOOOX
 XXXXXXXX
  XXXXXX 
 """,
@@ -42,6 +50,38 @@ XXXXXXXX
   XXXX  
    XX   
   XXXX  
+""",
+
+    'Ship3r':
+"""
+  XXXX  
+   XX   
+  XXXX  
+ XXXXXX 
+XXXXXXXX
+XX XX XX
+X  XX  X
+X  XX  X
+""",
+
+    'Ship5l':
+"""
+       XX       
+      XXXX      
+      XXXX      
+      XXXX      
+     XXXXXX     
+   XXXXXXXXXX   
+   XXXXXXXXXX   
+  XXXXXXXXXXXX  
+ XXXXXXXXXXXXXX 
+XXXXXXXXXXXXXXXX
+XXXX   XX   XXXX
+XXX    XX    XXX
+XXX    XX    XXX
+XX    XXXX    XX
+XX   XXXXXX   XX
+X   XXX  XXX   X
 """,
 
     'Bullet':
@@ -62,7 +102,9 @@ XXXX
 
     'Sun':
 """
+      XXXX      
     XXXXXXXX    
+   XXXXXXXXXX   
   XXXXXXXXXXXX  
  XXXXXXXXXXXXXX 
  XXXXXXXXXXXXXX 
@@ -70,14 +112,12 @@ XXXXXXXXXXXXXXXX
 XXXXXXXXXXXXXXXX
 XXXXXXXXXXXXXXXX
 XXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXX
  XXXXXXXXXXXXXX 
  XXXXXXXXXXXXXX 
   XXXXXXXXXXXX  
+   XXXXXXXXXX   
     XXXXXXXX    
+      XXXX      
 """,
 
     'Starl':
@@ -90,7 +130,7 @@ XXXXXXXX
 X  XX  X
 """,
 
-    'Stars':
+    'Starm':
 """
 X X X
  XXX 
@@ -120,6 +160,32 @@ XXOXX
   X  
 """
 },
+
+    'Bullets': {
+        'sprite':
+"""
+ XXXXXXXXXX 
+X          X
+X AB AB AB X
+X CD CD CD X
+X ED ED ED X
+X ED ED ED X
+X ED ED ED X
+X EF EF EF X
+X          X
+ XXXXXXXXXX 
+""",
+        'colours': {
+            'X': '6a780a',
+            'A': '524125',
+            'B': 'c89c58',
+            'C': '7d6238',
+            'D': 'ec9610',
+            'E': '784d0a',
+            'F': '8a5b11'
+            }
+        },
+
     'Paused':
 """
 XXXXXXXXXX      XXXXX     XX       XX   XXXXXXXXXX  XXXXXXXXXXX  XXXXXXXXXX 
