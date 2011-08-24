@@ -10,6 +10,9 @@ enumerate([])
 Enemies for single levels would be in the options.py
 After each level, sprites not needed anymore should be removed from the Container.
 -----
+Tailored levels:
+    With files, containing lists, where the spawned objects are in.
+-----
 Make it possible, to give enemies _custom_ AI via the options or level files.
 -----
 multiplayer:
@@ -99,8 +102,8 @@ surf = Image(ammo, {'1': 'red', '0': 'black'})
 |                                                |
 |                                                |
 |                                                |
-|                                                |
-| !!!             xxxxxxxxxxxxx              !!! |
+| !                                            ! |
+| !              xxxxxxxxxxxxx                 ! |
 +------------------------------------------------+
   secondary left    main         secondary right
 
