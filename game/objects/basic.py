@@ -137,7 +137,7 @@ class Basic(object):
         return s.rect.colliderect(object.rect)
 
     def move_internal(s, bounds):
-        dirs = s._game.OPTIONS.DIRECTIONS # l, r, u, d
+        dirs = s._game.OPTIONS.DIRECTIONS # [l, r, u, d]
         NUMS = [[0,2,3], [1,2,3], [2,0,1], [3,0,1]]
         offset = [0, 0, 0, 0]
         for i, j1, j2 in NUMS:
