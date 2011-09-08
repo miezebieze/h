@@ -23,9 +23,10 @@ green: Are slow, shooting and give ammo when crashed.
 bgreen: Fast and shooting. Dodge that!
 yellow: Move randomly around. Give good powerups when shot, money when crashed.
         Doesn't crash with enemies.
+byellow: Same as yellow, but avoids shots.
 orange: Explode on crashing.
 red: Are fast and evil and give money, when crashed into others.
-???: Avoiding the player until shortly before and then try to strike.
+bred: Avoiding the player until near and then try to strike.
 boss1: Comes from behind, will follow and shoot the player and
         have to be crashed/shot by greens. # reds will not come, when a boss is there.
 boss2: Flys besides the players and will try to ram them
@@ -49,9 +50,9 @@ multiple weapons with different ammo fired with different keys.
 the hud is in binary 'numbers'
     str(bin(<<value>>))[2:]
 
-ammo: max(bin(31)) = 11111
-bombs: max(bin(7)) = 111 # or max(bin(3)) = 11
-lives: max(bin(7)) = 111
+ammo:  max = bin(31) = 11111
+bombs: max = bin(7) = 111 # or max = bin(3) = 11
+lives: max = bin(7) = 111
 
 when ammo = 25:
 ammo = str(bin(ammo)) # '0b11001'

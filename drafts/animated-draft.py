@@ -31,3 +31,15 @@ class object:
         s.partframe += 1
         if s.partframe >= s.partfps:
             s.frame += 1
+
+
+#####
+
+class Image:
+    '''basic image object'''
+
+class Container:
+    '''contains all Images and Animations'''
+
+class Animation(Container):
+    '''animtion container'''
