@@ -9,6 +9,9 @@ import pygame
 
 class Basic(object):
 
+    instances = None # List with instances of the Class. Only subclasses
+                     # may contain an actual list.
+
     def __init__(s, game, options, position, image, group = None,
                  course = None, colliders = []):
         s._game = game

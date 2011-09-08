@@ -60,7 +60,7 @@ OBJECTS = {
         # player only: (class Player)
         'start_position': (GAME['screensize'][0] / 2, GAME['screensize'][1] - 20),
         'power':        0,  # TODO: (upgradeable) shotpower
-        'shootspeed':  3, # delay of normal shot, in times/second
+        'shootspeed':   3, # delay of normal shot, in times/second
         'ammo':         100, # TODO: amount of normal ammo
         'bombs':        2,  # amount of special ammo
         'lives':        4,  # amount of lives at start

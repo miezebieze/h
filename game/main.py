@@ -81,6 +81,7 @@ class Game:
                                     s, s.OPTIONS.OBJECTS[s.OPTIONS.GAME['default_enemy']],
                                     position, s.images[s.OPTIONS.GAME['default_enemy']],
                                     'enemies', None, colliders))
+        print objects.Thinking.instances
 
     def run(s):
         s.frame = 0

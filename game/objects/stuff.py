@@ -11,10 +11,13 @@ from basic import Basic
 
 class Pickup(Basic):
 
+    instances = []
+
     def __init__(s, game, options, position, image, group = 'power',
                  initdirection = None, colliders = ['player']):
         Basic.__init__(s, game, options, position, group,
                        initdirection, colliders)
+        s.instances.append(s)
         if options['type'] == 'money':
             s.value = options['value']
             s.halflife = options['halflife']
@@ -25,10 +28,13 @@ class Pickup(Basic):
 
 class Bullet(Basic):
 
+    instances = []
+
     def __init__(s, game, options, position, image, group = 'bullets',
                  course = 'up', colliders = ['static', 'enemies']):
         Basic.__init__(s, game, options, position,
                        image, group, course, colliders)
+        s.instances.append(s)
 
 
 '''

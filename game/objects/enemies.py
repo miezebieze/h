@@ -9,10 +9,13 @@ from basic import Basic
 
 class Thinking(Basic):
 
+    instances = []
+
     def __init__(s, game, options, position, image, group,
                  initdirection = None, colliders = []):
         Basic.__init__(s, game, options, position, image, group,
                        initdirection, colliders)
+        s.instances.append(s)
         s._behaviour = options['behaviour']
         s._target = s._game.subject
 

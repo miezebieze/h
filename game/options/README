@@ -1,0 +1,4 @@
+Here reside the options and the mods of the game.
+Data.py contains interchangeable data.
+Mods are currently kept in simple files.
+A mod can be started by writing a simple 'batchfile'.

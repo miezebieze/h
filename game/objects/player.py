@@ -11,7 +11,8 @@ from stuff import Bullet
 
 class Player(Basic):
 
-    ''' is not s.update()'d! '''
+    instances = []
+
     def __init__(s, game, options, position, image, group = 'player',
                  colliders = ['enemies', 'static', 'power']):
         Basic.__init__(s, game, options, position,
