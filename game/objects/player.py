@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import QUIT, KEYDOWN, KEYUP
 
-from local import asciisprites
+from lib import asciisprites
 
 from basic import Basic
 from stuff import Bullet

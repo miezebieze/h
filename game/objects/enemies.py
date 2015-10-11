@@ -1,6 +1,6 @@
 import random
 
-from local import asciisprites
+from lib import asciisprites
 
 from basic import Basic
 
