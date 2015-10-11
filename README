@@ -1,11 +1,9 @@
-*the last time i checked it was not able to run*
-
 OH HAI!
 This is my first bigger project:
 
 Featuring:
     * Graphics rendered from ascii for easy editing and to keep
-      binary out of source.
+      human unreadable stuff out of source.
     * Easily modifyable
 
 Playing in Gnu/Linux and similar ones:
