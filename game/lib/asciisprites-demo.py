@@ -101,9 +101,9 @@ screen = pygame.display.set_mode((66, 18), SRCALPHA, 32)
 
 # Setup the objects:
 image = Image(image, getcolourdict())
-print 'ani1'
+print ('ani1')
 ani1  = Animation(animation, backwards, Gold)
-print 'ani2'
+print ('ani2')
 ani2  = Animation(animation, forewards, Gold)
 
 while True:
@@ -181,7 +181,7 @@ Make a library, for playing animations:
     Another one to show if it's done with n.
     Daemonizing would be accomplished with something like:
         ani = Animation(args)
-        
+
 Animation: ([asciis], [timeline], {colours})
     frames:
         [Image objects in order of asciis]
@@ -189,5 +189,4 @@ Animation: ([asciis], [timeline], {colours})
         [indexes of frames]
     surface:
         surface of current frame
-    
 '''

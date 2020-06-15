@@ -2,7 +2,7 @@ import random
 
 from lib import asciisprites
 
-from basic import Basic
+from .basic import Basic
 
 #from options import Enemies
 

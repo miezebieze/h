@@ -3,8 +3,8 @@ from pygame.locals import QUIT, KEYDOWN, KEYUP
 
 from lib import asciisprites
 
-from basic import Basic
-from stuff import Bullet
+from .basic import Basic
+from .stuff import Bullet
 
 #from options import Options as Game
 
@@ -94,7 +94,7 @@ class Player(Basic):
         ''' dummy '''
         s._lives -= 1
         s.health = s.maxhealth
-        print 'bam'
+        print ('boom')
 
     def _shoot(s):
         ''' Append a bullet to the game. '''

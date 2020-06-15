@@ -35,8 +35,7 @@ class Image:
                 for x in range(self.width):
                     if self.asciilist[y][x] == colour:
                         self.surface.set_at((x, y), self.colours[colour])
-            print 'updated ' + colour
-        
+
     def set_colour(self, key, value):
         ''' Set the colour of any byte in self.colours.'''
         self.colours[key] = value
@@ -66,7 +65,6 @@ class Animation:
         self.timeline = timeline or ['0']
         self.colours  = colours or {'X': (255, 255, 255, 255)}
         for i in range(len(asciis)):
-            print i
             self.frames.append(Image(asciis[i], self.colours))
 
         self.curframe   = self.timeline[0]

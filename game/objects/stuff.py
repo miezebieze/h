@@ -2,7 +2,7 @@ import random
 
 #from local import asciisprites
 
-from basic import Basic
+from .basic import Basic
 
 #from options import Options as Game
 #from options import Bullets

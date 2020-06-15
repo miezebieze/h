@@ -1,5 +1,5 @@
 import pygame.locals
-from data import Colours, Prototypes
+from .data import Colours, Prototypes
 
 # For moving of objects: ESSENTIAL! Don't change, unless You know what Your doing
 DIRECTIONS = ['left', 'right', 'up', 'down']
