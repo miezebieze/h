@@ -59,7 +59,7 @@ class Basic(object):
         if s._moves:
             s._move()
         #if s.group == 'static_stuff':
-         #   s.draw(s._game.background)
+        #    s.draw(s._game.background)
         #else:
         s.draw(s._game.screen)
         return True
@@ -79,14 +79,14 @@ class Basic(object):
 
     def collide_ip(s):
         ''' Collide s.rect with all objects in s.colliders lists. '''
-        for i in range(len(s.colliders)):
-            if s.dead(): break
-            for j in range(len(s._game.objects[s.colliders[i]])):
-                if s.dead(): break
+        for i in range (len (s.colliders)):
+            if s.dead (): break
+            for j in range (len (s._game.objects[s.colliders[i]])):
+                if s.dead (): break
                 object = s._game.objects[s.colliders[i]][j]
                 if not s == object: # it could happen
-                    if s.collides_with(object):
-                        if not object.out_of_game():
+                    if s.collides_with (object):
+                        if not object.out_of_game ():
                             if not s.health == None: # invincible
                                 if object.damage == None: # almighty
                                     s.health = 0
@@ -126,7 +126,7 @@ class Basic(object):
             return s.rect.top <= bounds.top
         if direction is 'down':
             return s.rect.bottom >= bounds.bottom
-        
+
     def vulnerable(s):
         return s.health is not None
 

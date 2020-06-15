@@ -3,19 +3,17 @@ This is my first bigger project:
 
 Featuring:
     * Graphics rendered from ascii for easy editing and to keep
-      human unreadable stuff out of source.
+      human unreadable stuff out of repository.
     * Easily modifyable
 
 Playing in Gnu/Linux and similar ones:
-    cd game
-    ./H.sh
+    python game
 
 Other OSs:
-    # somehow get into ./game/
     # Do something like:
-    $PATH_TO_PYTHON2/python H.py
+    $PATH_TO_PYTHON/python game
 
 Requirements:
     pygame
-    python2
+    python
 
